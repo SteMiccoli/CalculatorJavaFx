@@ -38,12 +38,27 @@ public class CalculatorController {
 
     private void calculateFinalResult() {
         switch (operator) {
-            case "+" -> finalValue = initialValue + tempValue;
-            case "-" -> finalValue = initialValue - tempValue;
-            case "x" -> finalValue = initialValue * tempValue;
-            case "/" -> finalValue = initialValue / tempValue;
-            case "pow" -> finalValue = Math.pow(initialValue, 2);
-            case "sqrt" -> finalValue = Math.sqrt(initialValue);
+            case "+":
+                finalValue = initialValue + tempValue;
+                break;
+            case "-":
+                finalValue = initialValue - tempValue;
+                break;
+            case "x":
+                finalValue = initialValue * tempValue;
+                break;
+            case "/":
+                finalValue = initialValue / tempValue;
+                break;
+            case "pow":
+                finalValue = Math.pow(initialValue, 2);
+                break;
+            case "sqrt":
+                finalValue = Math.sqrt(initialValue);
+                break;
+            case "fraction":
+                finalValue = 1 / initialValue;
+                break;
         }
         System.out.println("Initial value");
         System.out.println(initialValue);
@@ -174,5 +189,23 @@ public class CalculatorController {
         calculateFinalResult();
         initialValueLabel.setText(String.format("√(%s)", initialValue));
         finalValueLabel.setText(String.valueOf(finalValue));
+    }
+
+    @FXML
+    protected void onFractionButtonClick() {
+        prepareOperator("fraction");
+        calculateFinalResult();
+        initialValueLabel.setText(String.format("1/(%s)", initialValue));
+        finalValueLabel.setText(String.valueOf(finalValue));
+    }
+
+    @FXML
+    protected void onInvertSignButtonClick() {
+        if (isInitValue) {
+            initialValue *= -1;
+            finalValueLabel.setText(String.format("%s", initialValue));
+        } else {
+            tempValue *= -1;
+        }
     }
 }
